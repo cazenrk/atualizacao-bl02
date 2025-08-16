@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão de Condomínio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <button data-target="dashboard" class="dashboard-button">
+                <img src="/img/modern-house.png" alt="Ícone do Dashboard">
+                <span>Dashboard</span>
+            </button>
+            <button data-target="moradores">Moradores</button>
+            <button data-target="mensalidade">Mensalidade</button>
+            <button data-target="fluxo-de-caixa">Fluxo de Caixa</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboard">
+            <div class="section-header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar no dashboard...">
+                    <button class="search-button">
+                        <img src="/img/loupe.png" alt="Pesquisar">
+                    </button>
+                </div>
+                <button class="add-resident-button">
+                    <img src="/img/add.png" alt="Adicionar">
+                    <span>Adicionar Item</span>
+                </button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Apto.</th>
+                            <th>Proprietário</th>
+                            <th>Número do CPF</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Situação</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados do dashboard aparecerão aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="mensalidade" hidden>
+            <div class="section-header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar mensalidades...">
+                    <button class="search-button">
+                        <img src="/img/loupe.png" alt="Pesquisar">
+                    </button>
+                </div>
+                <button class="add-resident-button">
+                    <img src="/img/add.png" alt="Adicionar">
+                    <span>Adicionar Mensalidade</span>
+                </button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Apto.</th>
+                            <th>Proprietário</th>
+                            <th>Número do CPF</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Situação</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados de mensalidades aparecerão aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="fluxo-de-caixa" hidden>
+            <div class="section-header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar no fluxo de caixa...">
+                    <button class="search-button">
+                        <img src="/img/loupe.png" alt="Pesquisar">
+                    </button>
+                </div>
+                <div class="button-group">
+                    <button class="add-resident-button">
+                        <img src="/img/save-money.png" alt="Adicionar Entrada">
+                        <span>ENTRADA</span>
+                    </button>
+                    <button class="add-expense-button">
+                        <img src="/img/save-money.png" alt="Adicionar Saída">
+                        <span>SAÍDA</span>
+                    </button>
+                </div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Apto</th>
+                            <th>Pagante</th>
+                            <th>Competência</th>
+                            <th>Valor</th>
+                            <th>Método de pag.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados do fluxo de caixa aparecerão aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="moradores" hidden>
+            <div class="section-header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar por nome, apto, etc...">
+                    <button class="search-button">
+                        <img src="/img/loupe.png" alt="Pesquisar">
+                    </button>
+                </div>
+                <button class="add-new-resident-button">
+                    <img src="/img/add.png" alt="Adicionar">
+                    <span>Adicionar Morador</span>
+                </button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Apto.</th>
+                            <th>Proprietário</th>
+                            <th>Número do CPF</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Situação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="moradores-tbody">
+                        <!-- Dados dos moradores aparecerão aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer>
+        <p>Desenvolvido por @VisionsX</p>
+    </footer>
+
+    <dialog id="residentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-button">&times;</span>
+                <h2><span id="modal-title-text">Editar Morador</span></h2>
+            </div>
+            <form id="residentForm">
+                <label for="modal-apto-input">Apartamento:</label>
+                <input type="text" id="modal-apto-input" name="apto" required>
+
+                <label for="proprietario">Proprietário:</label>
+                <input type="text" id="proprietario" name="proprietario" required>
+
+                <label for="cpf">Número do CPF:</label>
+                <input type="text" id="cpf" name="cpf" required>
+
+                <label for="telefone">Telefone:</label>
+                <input type="text" id="telefone" name="telefone">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </dialog>
+
+        <dialog id="mensalidade-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="back-button">&larr;</button>
+                <h2>Lançar Mensalidade</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            <form id="mensalidade-form">
+                <label for="mensalidade-apto">Apartamento:</label>
+                <div class="custom-select-wrapper">
+                    <input type="text" id="mensalidade-apto-search" class="custom-select-input" placeholder="Digite para buscar...">
+                    <div id="mensalidade-apto-list" class="custom-select-options" hidden>
+                        <!-- Opções de apartamento serão inseridas aqui pelo JS -->
+                    </div>
+                </div>
+
+                <label for="mensalidade-pagante">Pagante:</label>
+                <input type="text" id="mensalidade-pagante" name="pagante" required>
+
+                <div class="competencia-selects">
+                    <div class="competencia-item">
+                        <label for="mensalidade-mes">Mês:</label>
+                        <select id="mensalidade-mes" name="mes" required>
+                            <option value="01">Janeiro</option>
+                            <option value="02">Fevereiro</option>
+                            <option value="03">Março</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Maio</option>
+                            <option value="06">Junho</option>
+                            <option value="07">Julho</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembro</option>
+                            <option value="12">Dezembro</option>
+                        </select>
+                    </div>
+
+                    <div class="competencia-item">
+                        <label for="mensalidade-ano">Ano:</label>
+                        <select id="mensalidade-ano" name="ano" required>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                            <option value="2031">2031</option>
+                            <option value="2032">2032</option>
+                            <option value="2033">2033</option>
+                            <option value="2034">2034</option>
+                            <option value="2035">2035</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="mensalidade-valor">Valor:</label>
+                <input type="number" id="mensalidade-valor" name="valor" step="0.01" required>
+
+                <label for="mensalidade-pagamento">Método de pagamento:</label>
+                <select id="mensalidade-pagamento" name="forma_pagamento" required>
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Pix">Pix</option>
+                </select>
+
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </dialog>
+*// 
+    <dialog id="entrada-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-button">&times;</span>
+                <h2>Registrar Entrada</h2>
+            </div>
+            <p>Selecione a categoria da entrada:</p>
+            <div class="category-buttons">
+                <button data-category="Mensalidade">Mensalidade</button>
+                <button data-category="Salão de festa">Salão de festa</button>
+                <button data-category="Taxa elevador">Taxa elevador</button>
+                <button data-category="Taxa água">Taxa água</button>
+                <button data-category="Reciclagem">Reciclagem</button>
+                <button data-category="Outros">Outros</button>
+            </div>
+            <form id="entrada-form" hidden>
+                <input type="hidden" id="entrada-categoria" name="categoria">
+                <label for="entrada-valor">Valor:</label>
+                <input type="number" id="entrada-valor" name="valor" step="0.01" required>
+                <label for="entrada-descricao">Descrição (opcional):</label>
+                <input type="text" id="entrada-descricao" name="descricao">
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </dialog>
+
+    
+
+    <dialog id="salao-festa-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="back-button">&larr;</button>
+                <h2>Lançar Taxa do Salão de Festa</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            <form id="salao-festa-form">
+                <label for="salao-apto">Apartamento:</label>
+                <input type="text" id="salao-apto" name="apartamento" required>
+
+                <label for="salao-pagante">Pagante:</label>
+                <input type="text" id="salao-pagante" name="pagante" required>
+
+                <label for="salao-valor">Valor:</label>
+                <input type="number" id="salao-valor" name="valor" step="0.01" required>
+
+                <label for="salao-pagamento">Forma de pagamento:</label>
+                <select id="salao-pagamento" name="forma_pagamento" required>
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Pix">Pix</option>
+                </select>
+
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id="taxa-elevador-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="back-button">&larr;</button>
+                <h2>Lançar Taxa do Elevador</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            <form id="taxa-elevador-form">
+                <label for="elevador-apto">Apartamento:</label>
+                <input type="text" id="elevador-apto" name="apartamento" required>
+                <label for="elevador-valor">Valor:</label>
+                <input type="number" id="elevador-valor" name="valor" step="0.01" required>
+                <label for="elevador-descricao">Descrição (opcional):</label>
+                <input type="text" id="elevador-descricao" name="descricao">
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id="taxa-agua-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="back-button">&larr;</button>
+                <h2>Lançar Taxa de Água</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            <form id="taxa-agua-form">
+                <label for="agua-apto">Apartamento:</label>
+                <input type="text" id="agua-apto" name="apartamento" required>
+                <label for="agua-valor">Valor:</label>
+                <input type="number" id="agua-valor" name="valor" step="0.01" required>
+                <label for="agua-descricao">Descrição (opcional):</label>
+                <input type="text" id="agua-descricao" name="descricao">
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id="reciclagem-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="back-button">&larr;</button>
+                <h2>Lançar Valor de Reciclagem</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            <form id="reciclagem-form">
+                <label for="reciclagem-valor">Valor:</label>
+                <input type="number" id="reciclagem-valor" name="valor" step="0.01" required>
+                <label for="reciclagem-descricao">Descrição (opcional):</label>
+                <input type="text" id="reciclagem-descricao" name="descricao">
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id="saida-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Registrar Saída</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            <p>Selecione a categoria da saída:</p>
+            <div class="category-buttons">
+                <button data-category="Salário">Salário</button>
+                <button data-category="Férias/13º">Férias/13º</button>
+                <button data-category="Manutenção">Manutenção</button>
+                <button data-category="Informática">Informática</button>
+                <button data-category="Material de limpeza">Material de limpeza</button>
+                <button data-category="Outros">Outros</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="salario-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Registrar Saída - Salário</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            <form id="saida-form">
+                <div id="outros-categoria-wrapper" hidden>
+                    <label for="outros-categoria-nome">Nome da Categoria:</label>
+                    <input type="text" id="outros-categoria-nome" name="outros_categoria_nome">
+                </div>
+                <input type="hidden" id="saida-categoria" name="categoria">
+                <label for="saida-valor">Valor:</label>
+                <input type="number" id="saida-valor" name="valor" step="0.01" required>
+                <label for="saida-descricao">Descrição (opcional):</label>
+                <input type="text" id="saida-descricao" name="descricao">
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </dialog>
+
+    <dialog id="outros-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="back-button">&larr;</button>
+                <h2>Lançar Outros</h2>
+                <span class="close-button">&times;</span>
+            </div>
+            <form id="outros-form">
+                <label for="outros-nome-categoria">Nome da Categoria:</label>
+                <input type="text" id="outros-nome-categoria" name="nome_categoria" required>
+                <label for="outros-valor">Valor:</label>
+                <input type="number" id="outros-valor" name="valor" step="0.01" required>
+                <label for="outros-descricao">Descrição (opcional):</label>
+                <input type="text" id="outros-descricao" name="descricao">
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </dialog>
+
+    
+    <script type="module" src="script.js"></script>
+
+</body>
+</html>
