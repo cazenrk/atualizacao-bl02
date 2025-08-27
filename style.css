@@ -16,7 +16,7 @@ body {
 header {
     grid-area: header; /* Define a área do grid para o header */
     background-color: white;
-    width: 150px; /* Largura da barra lateral */
+    width: 170px; /* Largura da barra lateral */
     padding: 20px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -45,6 +45,7 @@ nav button {
     font-size: 16px;
     color: #555;
     transition: background-color 0.2s, color 0.2s;
+    white-space: nowrap;
 }
 
 nav button:hover {
@@ -123,16 +124,7 @@ main section[hidden] {
     width: 60%;
 }
 
-#dashboard .search-bar {
-    flex-grow: 0;
-    width: 60%;
-}
-
 #fluxo-de-caixa .section-header {
-    justify-content: space-between;
-}
-
-#dashboard .section-header {
     justify-content: space-between;
 }
 
@@ -185,13 +177,13 @@ main section[hidden] {
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 12px 25px; /* Increased horizontal padding */
+    padding: 12px 20px; /* Increased horizontal padding */
     cursor: pointer;
     display: flex;
     align-items: center;
     font-size: 1rem;
     font-weight: bold;
-    /* Removed width: 200px; */
+    width: 200px;
     justify-content: center;
     white-space: nowrap;
     box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Increased shadow */
@@ -215,23 +207,19 @@ main section[hidden] {
     color: white;
     border: none;
     border-radius: 5px;
-    padding: 12px 25px; /* Increased horizontal padding */
+    padding: 12px 15px;
     cursor: pointer;
     display: flex;
     align-items: center;
     font-size: 1rem;
     font-weight: bold;
-    /* Removed width: 200px; */
+    width: 200px;
     justify-content: center;
     white-space: nowrap;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Increased shadow */
-    transition: all 0.2s ease-in-out;
 }
 
 .add-new-resident-button:hover {
     background-color: #45a049;
-    transform: translateY(-3px); /* Increased lift */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.25); /* Increased shadow on hover */
 }
 
 .add-new-resident-button img {
@@ -240,44 +228,9 @@ main section[hidden] {
     margin-right: 8px;
 }
 
-#fluxo-de-caixa .add-resident-button,
-#fluxo-de-caixa .add-expense-button {
-    padding: 6px 9px;
-    font-size: 0.8rem;
-    width: 120px;
-    justify-content: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    transition: all 0.2s ease-in-out;
-}
 
-#fluxo-de-caixa .add-resident-button:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
 
-#fluxo-de-caixa .add-expense-button:hover {
-    background-color: #d32f2f;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
 
-#fluxo-de-caixa .add-resident-button img,
-#fluxo-de-caixa .add-expense-button img {
-    width: 35px;
-    height: 35px;
-    margin-right: 5px;
-}
-
-.button-group {
-    display: flex;
-    gap: 10px; /* Adiciona um espaço entre os botões */
-}
-
-#fluxo-de-caixa .button-group {
-    margin-left: 35px;
-}
 
 .table-container {
     flex-grow: 1;
@@ -362,48 +315,7 @@ dialog::backdrop {
     border-radius: 10px;
 }
 
-#entrada-modal .modal-content, #saida-modal .modal-content {
-    width: 800px;
-    max-height: 450px; /* Ajusta a altura máxima para tentar evitar scroll */
-    padding: 25px;    /* Diminui o espaçamento interno */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center; /* Centraliza o texto */
-}
 
-#entrada-modal h2, #saida-modal h2 {
-    text-align: center;
-    font-size: 1.5rem; /* Diminui o tamanho da fonte do título */
-    margin-bottom: 15px;
-}
-
-#entrada-modal form label, #saida-modal form label {
-    font-size: 1rem; /* Diminui a fonte dos rótulos */
-    margin-bottom: 5px;
-}
-
-#entrada-modal form input,
-#entrada-modal form select, #saida-modal form input, #saida-modal form select {
-    width: calc(100% - 20px); /* Ajusta a largura dos inputs com o novo padding */
-    padding: 8px;
-    font-size: 0.95rem;
-    margin-bottom: 10px;
-    border: 1px solid #ddd; /* Adiciona borda padrão */
-    box-sizing: border-box; /* Adicionado para incluir padding e borda na largura */
-}
-
-#entrada-modal form input:focus,
-#entrada-modal form select:focus, #saida-modal form input:focus, #saida-modal form select:focus {
-    border-color: #007bff; /* Borda mais escura ao focar */
-    outline: none; /* Remove o outline padrão do navegador */
-}
-
-#entrada-modal form button[type="submit"], #saida-modal form button[type="submit"] {
-    padding: 10px;
-    font-size: 1rem;
-    margin-top: 15px;
-}
 
 /* --- Modal Header Styles --- */
 
@@ -459,30 +371,7 @@ dialog::backdrop {
     transform: scale(1.2);
 }
 
-/* Overrides for modals WITHOUT a back button */
-#entrada-modal .modal-header,
-#saida-modal .modal-header,
-#residentModal .modal-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
 
-#entrada-modal .modal-header .close-button,
-#saida-modal .modal-header .close-button,
-#residentModal .modal-header .close-button {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-#entrada-modal .modal-header .close-button:hover,
-#saida-modal .modal-header .close-button:hover,
-#residentModal .modal-header .close-button:hover {
-    transform: translateY(-50%) scale(1.2);
-}
 
 .modal-content h2 {
     text-align: center;
@@ -525,47 +414,9 @@ dialog::backdrop {
     background-color: #45a049;
 }
 
-/* Estilos para o modal de entrada */
-.category-buttons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Três colunas */
-    gap: 10px;
-    margin-bottom: 20px;
-}
 
-.category-buttons button {
-    background-color: #e0e0e0; /* Um cinza mais neutro */
-    border: none; /* Remove a borda */
-    border-radius: 10px; /* Borda mais arredondada */
-    padding: 20px; /* Aumenta o padding */
-    font-size: 1.1rem; /* Aumenta a fonte */
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* Sombra mais pronunciada */
-    font-weight: bold;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
 
-.category-buttons button:hover {
-    background-color: #c0c0c0; /* Tom mais escuro no hover */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-    transform: translateY(-3px); /* Leve levantamento */
-}
 
-.category-buttons button img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
-}
-
-#entrada-form, #saida-form {
-    margin-top: 20px;
-}
 
 /* Estilo para o rodapé */
 footer {
@@ -600,7 +451,7 @@ footer {
 }
 
 /* Estilos para o modal de edição de morador */
-#residentModal {
+#residentModal, #addMensalidadeModal {
     width: 650px; /* Largura do modal */
     max-width: 95vw;
     border-radius: 10px;
@@ -699,31 +550,14 @@ footer {
 #taxa-elevador-modal form button[type="submit"],
 #taxa-agua-modal form button[type-="submit"],
 #reciclagem-modal form button[type="submit"],
-#outros-modal form button[type="submit"] {
+#outros-modal form button[type="submit"],
+#addMensalidadeModal form button[type="submit"] {
     padding: 10px;
     font-size: 1rem;
     margin-top: 15px;
 }
 
-.add-expense-button {
-    background-color: #f44336; /* Red */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 12px 15px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: bold;
-}
 
-.add-expense-button:hover {
-    background-color: #d32f2f;
-}
-
-
-}
 
 /* Estilos para o select customizado */
 .custom-select-wrapper {
@@ -785,32 +619,11 @@ footer {
     margin-bottom: 0px !important; /* Remove a margem inferior padrão e força a remoção */
 }
 
-/* Estilos para o modal de Salário */
-#salario-modal {
-    width: 850px; /* Largura do modal */
-    max-width: 95vw;
-    border-radius: 10px;
-    padding: 0;
-}
 
-#salario-modal .modal-content {
-    padding: 25px;
-}
 
-#salario-modal h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-}
-
-#saida-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #555;
-}
-
-#saida-form input {
+/* Estilos para o formulário de adicionar mensalidade */
+.add-mensalidade-form input,
+.add-mensalidade-form select {
     width: 100%;
     padding: 10px;
     margin-bottom: 15px;
@@ -820,28 +633,16 @@ footer {
     box-sizing: border-box;
 }
 
-#saida-form button[type="submit"] {
-    width: 100%;
-    padding: 12px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-top: 10px;
-    transition: background-color 0.2s;
+.add-mensalidade-form .competencia-selects {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
-#saida-form button[type="submit"]:hover {
-    background-color: #45a049;
+.add-mensalidade-form .competencia-item {
+    flex: 1;
 }
 
-#salario-modal .modal-header .close-button,
-#saida-modal .modal-header .close-button,
-#entrada-modal .modal-header .close-button {
-    position: absolute;
-    top: 15px;
-    right: 15px;
+.add-mensalidade-form .competencia-item select {
+    margin-bottom: 0;
 }

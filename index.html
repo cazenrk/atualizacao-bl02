@@ -16,6 +16,8 @@
             </button>
             <button data-target="moradores">Moradores</button>
             <button data-target="mensalidade">Mensalidade</button>
+            <button data-target="contas-a-pagar">Contas a Pagar</button>
+            <button data-target="contas-a-receber">Contas a Receber</button>
             <button data-target="fluxo-de-caixa">Fluxo de Caixa</button>
         </nav>
     </header>
@@ -61,7 +63,7 @@
                         <img src="/img/loupe.png" alt="Pesquisar">
                     </button>
                 </div>
-                <button class="add-resident-button">
+                <button class="add-resident-button" id="add-mensalidade-button">
                     <img src="/img/add.png" alt="Adicionar">
                     <span>Adicionar Mensalidade</span>
                 </button>
@@ -85,6 +87,91 @@
                 </table>
             </div>
         </section>
+        <section id="contas-a-pagar" hidden>
+            <div class="section-header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar em contas a pagar...">
+                    <button class="search-button">
+                        <img src="/img/loupe.png" alt="Pesquisar">
+                    </button>
+                </div>
+                <button class="add-resident-button">
+                    <img src="/img/add.png" alt="Adicionar">
+                    <span>Adicionar Conta</span>
+                </button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fornecedor</th>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th>Vencimento</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados de contas a pagar aparecerão aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="contas-a-receber" hidden>
+            <div class="section-header">
+                <div class="search-bar">
+                    <input type="text" placeholder="Pesquisar em contas a receber...">
+                    <button class="search-button">
+                        <img src="/img/loupe.png" alt="Pesquisar">
+                    </button>
+                </div>
+                <button class="add-resident-button" id="add-conta-receber-button">
+                    <img src="/img/add.png" alt="Adicionar">
+                    <span>Adicionar Conta</span>
+                </button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Apto</th>
+                            <th>Categoria</th>
+                            <th>Competência</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados de contas a receber aparecerão aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <dialog id="add-conta-receber-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close-button">&times;</span>
+                    <h2>Adicionar Conta a Receber</h2>
+                </div>
+                <form id="add-conta-receber-form">
+                    <label for="add-conta-receber-apto">Apartamento:</label>
+                    <input type="text" id="add-conta-receber-apto" name="apto" required>
+
+                    
+
+                    <label for="add-conta-receber-categoria">Categoria:</label>
+                    <input type="text" id="add-conta-receber-categoria" name="categoria" required>
+
+                    <label for="add-conta-receber-competencia">Competência:</label>
+                    <input type="text" id="add-conta-receber-competencia" name="competencia" required>
+
+                    <label for="add-conta-receber-valor">Valor:</label>
+                    <input type="text" id="add-conta-receber-valor" class="money-input" placeholder="R$ 0,00" required>
+
+                    <button type="submit">Salvar</button>
+                </form>
+            </div>
+        </dialog>
         <section id="fluxo-de-caixa" hidden>
             <div class="section-header">
                 <div class="search-bar">
@@ -93,16 +180,7 @@
                         <img src="/img/loupe.png" alt="Pesquisar">
                     </button>
                 </div>
-                <div class="button-group">
-                    <button class="add-resident-button">
-                        <img src="/img/save-money.png" alt="Adicionar Entrada">
-                        <span>ENTRADA</span>
-                    </button>
-                    <button class="add-expense-button">
-                        <img src="/img/save-money.png" alt="Adicionar Saída">
-                        <span>SAÍDA</span>
-                    </button>
-                </div>
+                
             </div>
             <div class="table-container">
                 <table>
@@ -186,6 +264,70 @@
         </div>
     </dialog>
 
+    <dialog id="addMensalidadeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close-button">&times;</span>
+                <h2>Adicionar Mensalidade</h2>
+            </div>
+            <form id="addMensalidadeForm" class="add-mensalidade-form">
+                <label for="add-mensalidade-apto">Apartamento:</label>
+                <input type="text" id="add-mensalidade-apto" name="apto" required>
+
+                <label for="add-mensalidade-pagante">Pagante:</label>
+                <input type="text" id="add-mensalidade-pagante" name="pagante" required>
+
+                <div class="competencia-selects">
+                    <div class="competencia-item">
+                        <label for="add-mensalidade-mes">Mês:</label>
+                        <select id="add-mensalidade-mes" name="mes" required>
+                            <option value="01">Janeiro</option>
+                            <option value="02">Fevereiro</option>
+                            <option value="03">Março</option>
+                            <option value="04">Abril</option>
+                            <option value="05">Maio</option>
+                            <option value="06">Junho</option>
+                            <option value="07">Julho</option>
+                            <option value="08">Agosto</option>
+                            <option value="09">Setembro</option>
+                            <option value="10">Outubro</option>
+                            <option value="11">Novembro</option>
+                            <option value="12">Dezembro</option>
+                        </select>
+                    </div>
+
+                    <div class="competencia-item">
+                        <label for="add-mensalidade-ano">Ano:</label>
+                        <select id="add-mensalidade-ano" name="ano" required>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                            <option value="2031">2031</option>
+                            <option value="2032">2032</option>
+                            <option value="2033">2033</option>
+                            <option value="2034">2034</option>
+                            <option value="2035">2035</option>
+                        </select>
+                    </div>
+                </div>
+
+                <label for="add-mensalidade-valor">Valor:</label>
+                <input type="number" id="add-mensalidade-valor" name="valor" step="0.01" required>
+
+                <label for="add-mensalidade-pagamento">Método de pagamento:</label>
+                <select id="add-mensalidade-pagamento" name="forma_pagamento" required>
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Pix">Pix</option>
+                </select>
+
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </dialog>
+
         <dialog id="mensalidade-modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -255,32 +397,7 @@
             </form>
         </div>
     </dialog>
-*// 
-    <dialog id="entrada-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="close-button">&times;</span>
-                <h2>Registrar Entrada</h2>
-            </div>
-            <p>Selecione a categoria da entrada:</p>
-            <div class="category-buttons">
-                <button data-category="Mensalidade">Mensalidade</button>
-                <button data-category="Salão de festa">Salão de festa</button>
-                <button data-category="Taxa elevador">Taxa elevador</button>
-                <button data-category="Taxa água">Taxa água</button>
-                <button data-category="Reciclagem">Reciclagem</button>
-                <button data-category="Outros">Outros</button>
-            </div>
-            <form id="entrada-form" hidden>
-                <input type="hidden" id="entrada-categoria" name="categoria">
-                <label for="entrada-valor">Valor:</label>
-                <input type="number" id="entrada-valor" name="valor" step="0.01" required>
-                <label for="entrada-descricao">Descrição (opcional):</label>
-                <input type="text" id="entrada-descricao" name="descricao">
-                <button type="submit">Salvar</button>
-            </form>
-        </div>
-    </dialog>
+
 
     
 
@@ -367,29 +484,14 @@
         </div>
     </dialog>
 
-    <dialog id="saida-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Registrar Saída</h2>
-                <span class="close-button">&times;</span>
-            </div>
-            <p>Selecione a categoria da saída:</p>
-            <div class="category-buttons">
-                <button data-category="Salário">Salário</button>
-                <button data-category="Férias/13º">Férias/13º</button>
-                <button data-category="Manutenção">Manutenção</button>
-                <button data-category="Informática">Informática</button>
-                <button data-category="Material de limpeza">Material de limpeza</button>
-                <button data-category="Outros">Outros</button>
-            </div>
-        </div>
-    </dialog>
+    
 
     <dialog id="salario-modal">
         <div class="modal-content">
             <div class="modal-header">
+                <button class="back-button" id="back-to-saida">&larr;</button>
                 <h2>Registrar Saída - Salário</h2>
-                <span class="close-button">&times;</span>
+                <span class="close-button" id="close-salario-modal">&times;</span>
             </div>
             <form id="saida-form">
                 <div id="outros-categoria-wrapper" hidden>

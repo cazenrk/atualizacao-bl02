@@ -1,12 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('script.js carregado e DOMContentLoaded disparado.');
+
     // Seletores de elementos
     const tabs = document.querySelectorAll('header nav button');
     const contents = document.querySelectorAll('main section');
     const allModals = document.querySelectorAll('dialog');
 
-    const entradaModal = document.getElementById('entrada-modal');
-    const saidaModal = document.getElementById('saida-modal');
-    const editResidentModal = document.getElementById('edit-resident-modal');
+    console.log('Número de abas encontradas:', tabs.length);
+    console.log('Número de seções de conteúdo encontradas:', contents.length);
+
+    
+    
     const mensalidadeModal = document.getElementById('mensalidade-modal');
     const salaoFestaModal = document.getElementById('salao-festa-modal');
     const taxaElevadorModal = document.getElementById('taxa-elevador-modal');
@@ -14,8 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const reciclagemModal = document.getElementById('reciclagem-modal');
     const outrosModal = document.getElementById('outros-modal');
 
-    const addResidentButton = document.querySelector('#fluxo-de-caixa .add-resident-button');
-    const addExpenseButton = document.querySelector('#fluxo-de-caixa .add-expense-button');
+    
 
     const searchInput = document.querySelector('#moradores .search-bar input');
     const moradoresTbody = document.getElementById('moradores-tbody');
@@ -37,58 +40,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- LÓGICA DOS MODAIS ---
 
-    if (addResidentButton) {
-        addResidentButton.addEventListener('click', () => entradaModal.showModal());
-    }
-
-    if (addExpenseButton) {
-        addExpenseButton.addEventListener('click', () => saidaModal.showModal());
-    }
+    
 
     allModals.forEach(modal => {
         const closeButton = modal.querySelector('.close-button');
-        if (closeButton) {
+        if (closeButton && closeButton.id !== 'close-salario-modal') {
             closeButton.addEventListener('click', () => modal.close());
         }
     });
 
-    const entradaCategoryButtons = document.querySelectorAll('#entrada-modal .category-buttons button');
-    entradaCategoryButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const category = button.dataset.category;
-            entradaModal.close();
-
-            switch (category) {
-                case 'Mensalidade':
-                    setupApartmentFilter();
-                    mensalidadeModal.showModal();
-                    break;
-                case 'Salão de festa':
-                    salaoFestaModal.showModal();
-                    break;
-                case 'Taxa elevador':
-                    taxaElevadorModal.showModal();
-                    break;
-                case 'Taxa água':
-                    taxaAguaModal.showModal();
-                    break;
-                case 'Reciclagem':
-                    reciclagemModal.showModal();
-                    break;
-                case 'Outros':
-                    outrosModal.showModal();
-                    break;
-            }
+    const closeSalarioModalButton = document.getElementById('close-salario-modal');
+    if (closeSalarioModalButton) {
+        closeSalarioModalButton.addEventListener('click', () => {
+            allModals.forEach(modal => modal.close());
         });
-    });
+    }
 
-    const backButtons = document.querySelectorAll('.back-button');
-    backButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            button.closest('dialog').close();
-            entradaModal.showModal();
-        });
-    });
+    
+
+    
+
+    
 
     // --- LÓGICA DA SEÇÃO MORADORES ---
 
@@ -117,44 +89,25 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Lógica para Saída (seleção de categoria e formulário)
-    const saidaCategoryButtons = document.querySelectorAll('#saida-modal .category-buttons button');
-    const saidaForm = document.getElementById('saida-form');
-    const saidaCategoriaInput = document.getElementById('saida-categoria');
-    const salarioModal = document.getElementById('salario-modal');
-
-    saidaCategoryButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const category = button.dataset.category;
-            saidaCategoriaInput.value = category;
-
-            const modalTitle = salarioModal.querySelector('h2');
-            if (modalTitle) {
-                modalTitle.textContent = `Registrar Saída - ${category}`;
-            }
-
-            const outrosCategoriaWrapper = document.getElementById('outros-categoria-wrapper');
-            if (category === 'Outros') {
-                outrosCategoriaWrapper.hidden = false;
-            } else {
-                outrosCategoriaWrapper.hidden = true;
-            }
-
-            salarioModal.showModal();
+    const addMensalidadeButton = document.getElementById('add-mensalidade-button');
+    if (addMensalidadeButton) {
+        addMensalidadeButton.addEventListener('click', () => {
+            const addMensalidadeModal = document.getElementById('addMensalidadeModal');
+            addMensalidadeModal.showModal();
         });
-    });
+    }
 
-    if (salarioModal) {
-        
+    
 
-        const form = salarioModal.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-                salarioModal.close();
-                form.reset();
-            });
-        }
+    
+
+    const addContaReceberButton = document.getElementById('add-conta-receber-button');
+    const addContaReceberModal = document.getElementById('add-conta-receber-modal');
+
+    if (addContaReceberButton) {
+        addContaReceberButton.addEventListener('click', () => {
+            addContaReceberModal.showModal();
+        });
     }
 
     function setupApartmentFilter() {
@@ -201,5 +154,53 @@ document.addEventListener('DOMContentLoaded', () => {
                 mensalidadeForm.reset(); // Limpa o formulário
             });
         }
+    }
+
+    // Função para formatar valores monetários
+    function formatCurrency(input) {
+        let value = input.value.replace(/\D/g, ''); // Remove tudo que não é dígito
+        if (value.length === 0) {
+            input.value = '';
+            return;
+        }
+        value = (parseInt(value) / 100).toFixed(2); // Converte para float e formata com 2 casas decimais
+        value = value.replace('.', ','); // Troca ponto por vírgula
+        value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.'); // Adiciona pontos nos milhares
+        input.value = 'R$ ' + value;
+    }
+
+    // Lógica para o input de valor da conta a receber
+    const addContaReceberValorInput = document.getElementById('add-conta-receber-valor');
+    if (addContaReceberValorInput) {
+        addContaReceberValorInput.addEventListener('input', () => {
+            formatCurrency(addContaReceberValorInput);
+        });
+    }
+
+    // Lógica para o formulário de adicionar conta a receber
+    const addContaReceberForm = document.getElementById('add-conta-receber-form');
+    if (addContaReceberForm) {
+        addContaReceberForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Previne o envio padrão do formulário
+
+            const apto = document.getElementById('add-conta-receber-apto').value;
+            const categoria = document.getElementById('add-conta-receber-categoria').value;
+            const competencia = document.getElementById('add-conta-receber-competencia').value;
+            const valorFormatado = document.getElementById('add-conta-receber-valor').value;
+
+            // Remover "R$" e pontos, e trocar vírgula por ponto para converter para número
+            const valorNumerico = parseFloat(valorFormatado.replace('R$ ', '').replace('.', '').replace(',', '.'));
+
+            console.log('Nova Conta a Receber:', {
+                apto,
+                categoria,
+                competencia,
+                valor: valorNumerico
+            });
+
+            // Fechar o modal e resetar o formulário
+            addContaReceberModal.close();
+            addContaReceberForm.reset();
+        });
     }
 });
